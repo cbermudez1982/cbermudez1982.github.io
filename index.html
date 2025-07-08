@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SimpleSwap DEX</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🔁 SimpleSwap</h1>
+    <button id="connectBtn">🔌 Conectar Wallet</button>
+    <p id="walletAddress">No conectado</p>
+
+    <div class="card">
+      <h2>Agregar Liquidez</h2>
+      <input id="liqAmountA" type="number" placeholder="Cantidad Token A" />
+      <input id="liqAmountB" type="number" placeholder="Cantidad Token B" />
+      <button id="addLiqBtn">Agregar Liquidez</button>
+      <p id="liqStatus"></p>
+    </div>
+
+    <div class="card">
+      <h2>Swappear Tokens</h2>
+      <p>
+        Token A: <code id="tokenA">0x1F784...2935</code>
+        <button id="swapOrderBtn">🔄 Cambiar Orden</button>
+      </p>
+      <p>Token B: <code id="tokenB">0x87A64...B5a3</code></p>
+
+      <p>Precio actual (Token B por 1 Token A): <span id="priceDisplay">-</span></p>
+
+      <input id="swapAmountIn" type="number" placeholder="Cantidad de Token A" />
+      <button id="swapBtn">Swappear</button>
+      <p id="swapStatus"></p>
+    </div>
+    
+    <div class="card">
+      <h2>Remover Liquidez</h2>
+      <label>Monto de liquidez:</label>
+      <input id="liqAmountRemove" placeholder="0.0" />
+      <button id="remLiqBtn">Remover Liquidez</button>
+      <p id="remLiqStatus"></p>
+      <p>Liquidez actual: <span id="liqDisplay">-</span></p>
+    </div>
+
+  </div>
+
+  
+
+  <script type="module" src="./Scripts/script.js"></script>
+</body>
+</html>
