@@ -9,39 +9,39 @@
 <body>
   <div class="container">
     <h1>🔁 SimpleSwap</h1>
-    <button id="connectBtn">🔌 Conectar Wallet</button>
-    <p id="walletAddress">No conectado</p>
+    <button id="connectBtn">🔌 Connect Wallet</button>
+    <p id="walletAddress">Not connected</p>
 
     <div class="card">
-      <h2>Agregar Liquidez</h2>
+      <h2>Add Liquidity</h2>
       <input id="liqAmountA" type="number" placeholder="Cantidad Token A" />
       <input id="liqAmountB" type="number" placeholder="Cantidad Token B" />
-      <button id="addLiqBtn">Agregar Liquidez</button>
+      <button id="addLiqBtn">Add Liquidity</button>
       <p id="liqStatus"></p>
     </div>
 
     <div class="card">
-      <h2>Swappear Tokens</h2>
+      <h2>Swap Tokens</h2>
       <p>
         Token A: <code id="tokenA">0x1F784...2935</code>
-        <button id="swapOrderBtn">🔄 Cambiar Orden</button>
+        <button id="swapOrderBtn">🔄 Swap Token Order</button>
       </p>
       <p>Token B: <code id="tokenB">0x87A64...B5a3</code></p>
 
-      <p>Precio actual (Token B por 1 Token A): <span id="priceDisplay">-</span></p>
+      <p>Current Price (B Token per 1 A Token): <span id="priceDisplay">-</span></p>
 
-      <input id="swapAmountIn" type="number" placeholder="Cantidad de Token A" />
-      <button id="swapBtn">Swappear</button>
+      <input id="swapAmountIn" type="number" placeholder="A Token Quantity" />
+      <button id="swapBtn">Swap</button>
       <p id="swapStatus"></p>
     </div>
     
     <div class="card">
-      <h2>Remover Liquidez</h2>
-      <label>Monto de liquidez:</label>
+      <h2>Remove Liquidity</h2>
+      <label>LP Token Quantity:</label>
       <input id="liqAmountRemove" placeholder="0.0" />
-      <button id="remLiqBtn">Remover Liquidez</button>
+      <button id="remLiqBtn">Remove Liquidity</button>
       <p id="remLiqStatus"></p>
-      <p>Liquidez actual: <span id="liqDisplay">-</span></p>
+      <p>Current Wallet Liquidity: <span id="liqDisplay">-</span></p>
     </div>
 
   </div>
