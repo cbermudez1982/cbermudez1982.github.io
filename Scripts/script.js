@@ -1,19 +1,36 @@
 import { ethers } from 'https://cdn.jsdelivr.net/npm/ethers@6.8.1/dist/ethers.min.js';
 
-// 1. CONSTANTES Y CONFIGURACIÓN INICIAL
+/**
+ * @title SimpleSwap DEX Interface
+ * @notice A decentralized exchange interface for token swaps and liquidity provision
+ * @dev Interacts with Ethereum smart contracts using ethers.js library
+ */
 const provider = new ethers.BrowserProvider(window.ethereum);
 let signer;
 
+/// @notice Address of the deployed Swap contract
 const CONTRACT_ADDRESS = "0xe30Ad4daFB933547Fe3e68ea4e3dB8416CDEEf82";
+
+/// @notice Address of Token A contract
 const TOKEN_A = "0xf367150C56b9c8C14db60914C82D1b278cfA7A6D";
+
+/// @notice Address of Token B contract
 const TOKEN_B = "0x1Fd59a58510686a2d6029A8D27F66Fdc68360ed1";
 
+/**
+ * @notice ABI for ERC20 token contracts
+ * @dev Includes balanceOf, mint, and approve functions
+ */
 const TOKEN_ABI = [
   "function balanceOf(address) view returns (uint)",
   "function mint(address to, uint amount)",
   "function approve(address, uint) returns (bool)"
 ];
 
+/**
+ * @notice ABI for Swap contract
+ * @dev Includes functions for liquidity management and token swaps
+ */
 const SWAP_ABI = [
   "function addLiquidity(address tokenA, address tokenB, uint amountADesired, uint amountBDesired, uint amountAMin, uint amountBMin, address to, uint deadline) external returns (uint amountA, uint amountB, uint liquidity)",
   "function swapExactTokensForTokens(uint amountIn, uint amountOutMin, address[] path, address to, uint deadline) external returns (uint[] memory)",
@@ -22,7 +39,7 @@ const SWAP_ABI = [
   "function balanceOf(address account) external view returns (uint256)"
 ];
 
-// 2. ELEMENTOS UI
+// UI Elements
 const connectBtn = document.getElementById("connectBtn");
 const walletAddress = document.getElementById("walletAddress");
 const addLiqBtn = document.getElementById("addLiqBtn");
@@ -38,21 +55,36 @@ const tokenADisplay = document.getElementById("tokenA");
 const tokenBDisplay = document.getElementById("tokenB");
 const mintStatus = document.getElementById("mintStatus");
 
+/// @notice Currently selected token pair (A and B)
 let currentTokenA = TOKEN_A;
 let currentTokenB = TOKEN_B;
 
-// 3. FUNCIONES DEL CONTRATO
+/**
+ * @notice Gets the Swap contract instance
+ * @dev Uses the current signer or gets a new one if not available
+ * @return {Promise<ethers.Contract>} Instance of the Swap contract
+ */
 async function getSwapContract() {
   signer = signer || await provider.getSigner();
   return new ethers.Contract(CONTRACT_ADDRESS, SWAP_ABI, signer);
 }
 
+/**
+ * @notice Gets a Token contract instance
+ * @dev Uses the current signer or gets a new one if not available
+ * @param {string} tokenAddress Address of the token contract
+ * @return {Promise<ethers.Contract>} Instance of the Token contract
+ */
 async function getTokenContract(tokenAddress) {
   signer = signer || await provider.getSigner();
   return new ethers.Contract(tokenAddress, TOKEN_ABI, signer);
 }
 
-// 4. FUNCIONES PRINCIPALES
+/**
+ * @notice Updates the UI with current contract state
+ * @dev Fetches and displays token prices, liquidity, and balances
+ * @return {Promise<void>}
+ */
 async function updateUI() {
   if (!signer) {
     priceDisplay.innerText = "-";
@@ -81,6 +113,11 @@ async function updateUI() {
   }
 }
 
+/**
+ * @notice Executes a token swap
+ * @dev Handles token approval and swap transaction
+ * @return {Promise<void>}
+ */
 async function swapTokens() {
   if (!signer) {
     alert("Connect your wallet first.");
@@ -123,11 +160,20 @@ async function swapTokens() {
   }
 }
 
+/**
+ * @notice Swaps the order of tokens in the current pair
+ * @dev Updates UI after swapping token references
+ */
 function swapTokenOrder() {
   [currentTokenA, currentTokenB] = [currentTokenB, currentTokenA];
   updateUI();
 }
 
+/**
+ * @notice Adds liquidity to the pool
+ * @dev Handles token approvals and liquidity provision
+ * @return {Promise<void>}
+ */
 async function addLiquidity() {
   if (!signer) {
     alert("Connect your wallet first.");
@@ -181,6 +227,11 @@ async function addLiquidity() {
   }
 }
 
+/**
+ * @notice Removes liquidity from the pool
+ * @dev Handles LP token approval and liquidity removal
+ * @return {Promise<void>}
+ */
 async function removeLiquidity() {
   if (!signer) {
     alert("Connect your wallet first.");
@@ -225,13 +276,19 @@ async function removeLiquidity() {
   }
 }
 
+/**
+ * @notice Mints test tokens for the user
+ * @dev Only works with test tokens that have mint functionality
+ * @param {string} tokenType Either 'A' or 'B' indicating which token to mint
+ * @return {Promise<void>}
+ */
 async function mintTokens(tokenType) {
   if (!signer) {
     alert("Connect your wallet first.");
     return;
   }
 
-  mintStatus.textContent = `Minting 100 TEST${tokenType}...`;
+  mintStatus.textContent = `Minting 100 Token ${tokenType}...`;
   
   try {
     const tokenAddress = tokenType === 'A' ? TOKEN_A : TOKEN_B;
@@ -251,9 +308,13 @@ async function mintTokens(tokenType) {
   }
 }
 
-// 5. INICIALIZACIÓN
+/**
+ * @notice Initializes the application
+ * @dev Sets up event listeners and UI interactions
+ * @return {Promise<void>}
+ */
 async function init() {
-  // Configurar eventos de pestañas
+  // Set up tab switching
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -263,7 +324,7 @@ async function init() {
     });
   });
 
-  // Conexión de wallet
+  // Wallet connection
   connectBtn.onclick = async () => {
     try {
       await provider.send("eth_requestAccounts", []);
@@ -272,11 +333,11 @@ async function init() {
       walletAddress.textContent = `✅ ${address.slice(0, 6)}...${address.slice(-4)}`;
       await updateUI();
     } catch (e) {
-      alert("Error conectando wallet: " + (e.message || e));
+      alert("Error connecting wallet: " + (e.message || e));
     }
   };
 
-  // Asignar eventos
+  // Assign event handlers
   swapBtn.onclick = swapTokens;
   swapOrderBtn.onclick = swapTokenOrder;
   addLiqBtn.onclick = addLiquidity;
@@ -285,5 +346,5 @@ async function init() {
   document.getElementById("mintTokenBBtn").onclick = () => mintTokens('B');
 }
 
-// Iniciar la aplicación
+// Start the application
 init();

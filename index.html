@@ -1,77 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Meta tags for character encoding and responsive viewport -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Page title and stylesheet link -->
   <title>SimpleSwap DEX</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Main container for all content -->
   <div class="container">
+    <!-- Application header with title -->
     <h1>🔁 SimpleSwap</h1>
+    
+    <!-- Wallet connection button -->
     <button id="connectBtn">🔌 Connect Wallet</button>
+    
+    <!-- Wallet address display area -->
     <p id="walletAddress">Not connected</p>
 
+    <!-- Tab navigation -->
     <div class="tabs">
+      <!-- Active tab is marked with 'active' class -->
       <button class="tab-btn active" data-tab="swap">Swap</button>
       <button class="tab-btn" data-tab="liquidity">Liquidity</button>
       <button class="tab-btn" data-tab="mint">Mint Tokens</button>
     </div>
 
-    <!-- Swap Tab -->
+    <!-- Swap Tab Content -->
     <div id="swap" class="tab-content active">
       <div class="card">
         <h2>Swap Tokens</h2>
+        
+        <!-- Token display with swap order button -->
         <p>
           Token A: <code id="tokenA">0x1F784...2935</code>
           <button id="swapOrderBtn">🔄 Swap Token Order</button>
         </p>
         <p>Token B: <code id="tokenB">0x87A64...B5a3</code></p>
 
+        <!-- Price display -->
         <p>Current Price (B Token per 1 A Token): <span id="priceDisplay">-</span></p>
 
-        <input id="swapAmountIn" type="number" placeholder="Token Quantity">
+        <!-- Swap form -->
+        <input id="swapAmountIn" type="number" placeholder="Token Quantity" min="0" step="any">
         <button id="swapBtn">Swap</button>
-        <p id="swapStatus"></p>
+        
+        <!-- Swap operation status messages -->
+        <p id="swapStatus" class="status-message"></p>
       </div>
     </div>
 
-    <!-- Liquidity Tab -->
+    <!-- Liquidity Tab Content -->
     <div id="liquidity" class="tab-content">
+      <!-- Add Liquidity Section -->
       <div class="card">
         <h2>Add Liquidity</h2>
-        <input id="liqAmountA" type="number" placeholder="Token A Amount">
-        <input id="liqAmountB" type="number" placeholder="Token B Amount">
+        <input id="liqAmountA" type="number" placeholder="Token A Amount" min="0" step="any">
+        <input id="liqAmountB" type="number" placeholder="Token B Amount" min="0" step="any">
         <button id="addLiqBtn">Add Liquidity</button>
-        <p id="liqStatus"></p>
+        <p id="liqStatus" class="status-message"></p>
       </div>
 
+      <!-- Remove Liquidity Section -->
       <div class="card">
         <h2>Remove Liquidity</h2>
-        <input id="liqAmountRemove" type="number" placeholder="LP Token Amount">
+        <input id="liqAmountRemove" type="number" placeholder="LP Token Amount" min="0" step="any">
         <button id="remLiqBtn">Remove Liquidity</button>
-        <p id="remLiqStatus"></p>
+        <p id="remLiqStatus" class="status-message"></p>
+        
+        <!-- Current LP tokens balance display -->
         <p>Current LP Tokens: <span id="liqDisplay">-</span></p>
       </div>
     </div>
 
-    <!-- Mint Tab -->
+    <!-- Mint Tab Content -->
     <div id="mint" class="tab-content">
       <div class="card">
         <h2>Mint Test Tokens</h2>
+        
+        <!-- Token A mint option -->
         <div class="mint-option">
           <p>Token A: <code id="mintTokenA">0x1F784...2935</code></p>
           <button id="mintTokenABtn">Mint 100 Token A</button>
         </div>
+        
+        <!-- Token B mint option -->
         <div class="mint-option">
           <p>Token B: <code id="mintTokenB">0x87A64...B5a3</code></p>
           <button id="mintTokenBBtn">Mint 100 Token B</button>
         </div>
-        <p id="mintStatus"></p>
+        
+        <!-- Mint operation status messages -->
+        <p id="mintStatus" class="status-message"></p>
       </div>
     </div>
   </div>
 
+  <!-- JavaScript module import -->
   <script type="module" src="./Scripts/script.js"></script>
 </body>
 </html>
