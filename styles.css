@@ -3,38 +3,84 @@ body {
   background: #f1f1f1;
   margin: 0;
   padding: 20px;
+  color: #333; /* Añadido para mejor contraste */
 }
 
 .container {
   max-width: 500px;
-  margin: auto;
-  text-align: center;
+  margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ddd;
+  justify-content: center;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-bottom: 3px solid transparent;
+  color: #007bff;
+  margin: 0 5px;
+  transition: all 0.3s;
+}
+
+.tab-btn:hover {
+  color: #0056b3;
+}
+
+.tab-btn.active {
+  border-bottom: 3px solid #007bff;
+  font-weight: bold;
+  color: #0056b3;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s;
+}
+
+.tab-content.active {
+  display: block;
 }
 
 .card {
   background: white;
   padding: 20px;
-  margin-top: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px #ccc;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 input {
   padding: 10px;
-  width: 80%;
+  width: 100%;
   margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
 }
 
 button {
-  padding: 10px 20px;
+  padding: 10px 15px;
   font-weight: bold;
   cursor: pointer;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #007bff;
   color: white;
+  transition: background 0.3s;
+  width: 100%;
+  margin: 5px 0;
 }
 
 button:hover {
@@ -44,5 +90,49 @@ button:hover {
 code {
   background: #eee;
   padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.mint-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.mint-option button {
+  background-color: #28a745;
+  width: auto;
+  padding: 8px 15px;
+}
+
+.mint-option button:hover {
+  background-color: #218838;
+}
+
+#swapStatus, #liqStatus, #remLiqStatus, #mintStatus {
+  margin-top: 15px;
+  padding: 10px;
   border-radius: 5px;
+}
+
+#swapStatus.success, #liqStatus.success, 
+#remLiqStatus.success, #mintStatus.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+#swapStatus.error, #liqStatus.error,
+#remLiqStatus.error, #mintStatus.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

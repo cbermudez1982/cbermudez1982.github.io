@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SimpleSwap DEX</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
@@ -12,41 +12,65 @@
     <button id="connectBtn">🔌 Connect Wallet</button>
     <p id="walletAddress">Not connected</p>
 
-    <div class="card">
-      <h2>Add Liquidity</h2>
-      <input id="liqAmountA" type="number" placeholder="Cantidad Token A" />
-      <input id="liqAmountB" type="number" placeholder="Cantidad Token B" />
-      <button id="addLiqBtn">Add Liquidity</button>
-      <p id="liqStatus"></p>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="swap">Swap</button>
+      <button class="tab-btn" data-tab="liquidity">Liquidity</button>
+      <button class="tab-btn" data-tab="mint">Mint Tokens</button>
     </div>
 
-    <div class="card">
-      <h2>Swap Tokens</h2>
-      <p>
-        Token A: <code id="tokenA">0x1F784...2935</code>
-        <button id="swapOrderBtn">🔄 Swap Token Order</button>
-      </p>
-      <p>Token B: <code id="tokenB">0x87A64...B5a3</code></p>
+    <!-- Swap Tab -->
+    <div id="swap" class="tab-content active">
+      <div class="card">
+        <h2>Swap Tokens</h2>
+        <p>
+          Token A: <code id="tokenA">0x1F784...2935</code>
+          <button id="swapOrderBtn">🔄 Swap Token Order</button>
+        </p>
+        <p>Token B: <code id="tokenB">0x87A64...B5a3</code></p>
 
-      <p>Current Price (B Token per 1 A Token): <span id="priceDisplay">-</span></p>
+        <p>Current Price (B Token per 1 A Token): <span id="priceDisplay">-</span></p>
 
-      <input id="swapAmountIn" type="number" placeholder="A Token Quantity" />
-      <button id="swapBtn">Swap</button>
-      <p id="swapStatus"></p>
-    </div>
-    
-    <div class="card">
-      <h2>Remove Liquidity</h2>
-      <label>LP Token Quantity:</label>
-      <input id="liqAmountRemove" placeholder="0.0" />
-      <button id="remLiqBtn">Remove Liquidity</button>
-      <p id="remLiqStatus"></p>
-      <p>Current Wallet Liquidity: <span id="liqDisplay">-</span></p>
+        <input id="swapAmountIn" type="number" placeholder="Token Quantity">
+        <button id="swapBtn">Swap</button>
+        <p id="swapStatus"></p>
+      </div>
     </div>
 
+    <!-- Liquidity Tab -->
+    <div id="liquidity" class="tab-content">
+      <div class="card">
+        <h2>Add Liquidity</h2>
+        <input id="liqAmountA" type="number" placeholder="Token A Amount">
+        <input id="liqAmountB" type="number" placeholder="Token B Amount">
+        <button id="addLiqBtn">Add Liquidity</button>
+        <p id="liqStatus"></p>
+      </div>
+
+      <div class="card">
+        <h2>Remove Liquidity</h2>
+        <input id="liqAmountRemove" type="number" placeholder="LP Token Amount">
+        <button id="remLiqBtn">Remove Liquidity</button>
+        <p id="remLiqStatus"></p>
+        <p>Current LP Tokens: <span id="liqDisplay">-</span></p>
+      </div>
+    </div>
+
+    <!-- Mint Tab -->
+    <div id="mint" class="tab-content">
+      <div class="card">
+        <h2>Mint Test Tokens</h2>
+        <div class="mint-option">
+          <p>Token A: <code id="mintTokenA">0x1F784...2935</code></p>
+          <button id="mintTokenABtn">Mint 100 Token A</button>
+        </div>
+        <div class="mint-option">
+          <p>Token B: <code id="mintTokenB">0x87A64...B5a3</code></p>
+          <button id="mintTokenBBtn">Mint 100 Token B</button>
+        </div>
+        <p id="mintStatus"></p>
+      </div>
+    </div>
   </div>
-
-  
 
   <script type="module" src="./Scripts/script.js"></script>
 </body>
